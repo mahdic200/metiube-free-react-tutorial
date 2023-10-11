@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Root() {
     const [count, setCount] = useState(0);
+    const [reRender, setReRender] = useState(true);
     
+    useEffect(() => {
+        console.log('useEffect function executed !');
+    }, []);
+
     return (
         <section>
             <section onClick={() => {
                 setCount(count + 1);
             }}>root page count is : {count}
             </section>
-            <span onClick={() => console.log(count)}>log</span>
+            <button onClick={() => setReRender(!reRender)}>change</button>
         </section>
     );
 }
