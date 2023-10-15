@@ -1,29 +1,47 @@
-
-interface mahdi {
-    style: string;
-    text: string;
-    position?: 1 | 2 | 3 | 4;
-    sayHello: (...args: any) => string;
-}
-
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
 
 function Root() {
-    // var myVar: number | string | boolean | Object | undefined | null | any;
-    // const handleChange: () => (void | string | null | undefined) 
-    // const handleChange: (arg1?: string | null, arg2?: boolean, arg3?: number | undefined) => void 
-    // const handleChange: (...args: any) => any = () => {};
-    // const handleChange: (arg1: Object) => void = () => {};
-    const handleChange: (arg1: mahdi) => void = () => {};
-    handleChange({
-        style: "mahdi",
-        text: "some text",
-        position: 1,
-        sayHello: () => {return ""}
-    });
+    const [firstName, setFirstName] = useState<string>("");
+
+    const handleFirstNameChange = (e: ChangeEvent) => {
+        console.clear();
+        /* اینجا به مشکل برخوردیم */
+        // console.log(e.currentTarget.value)
+        // const target = (e.currentTarget as HTMLInputElement);
+        // const target = e.currentTarget as HTMLInputElement;
+        const target = e.currentTarget as HTMLInputElement;
+        // (e.currentTarget as HTMLInputElement).value;
+        // console.log(target.value);
+        // setFirstName(target.value as string);
+        setFirstName(target.value);
+    };
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+    };
+
+    const handleFirstNameClick = (e: MouseEvent) => {
+    };
 
     return (
         <section>
-            
+            {/* <section style={{backgroundColor: "cyan", padding: "10px 0"}} onClick={(e) => {
+                    // console.log(e.target);
+                    // console.log(e.currentTarget);
+                }}>
+                <button>
+                    click me
+                </button>
+                <button>click me 2</button>
+            </section> */}
+
+            <section>
+                <form action="" onSubmit={handleSubmit}>
+                    <input type="text" name="first_name" onClick={handleFirstNameClick} onChange={handleFirstNameChange} />
+                    <p>{firstName}</p>
+                    <button type="submit">submit</button>
+                </form>
+            </section>
         </section>
     );
 }
